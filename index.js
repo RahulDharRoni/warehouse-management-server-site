@@ -29,17 +29,19 @@ async function run() {
             const service = await booksCollection.findOne(query);
             res.send(service);
         })
+        //post one data
         app.post('/books', async (req, res) => {
             const newService = req.body;
             const result = await booksCollection.insertOne(newService);
             res.send(result);
         });
-        // app.post('/books', async (req, res) => {
-        //     const newBook = req.body;
-        //     console.log(newBook);
-        //     const books = await booksCollection.insertOne(newBook);
-        //     res.send(books)
-        // })
+        //delete Data
+        app.delete('/books/:id', async (req, res) => {
+            const id = req.params.id;
+            const query = { _id: ObjectId(id) };
+            const result = await booksCollection.deleteOne(query);
+            res.send(result);
+        });
     } finally {
 
     }
